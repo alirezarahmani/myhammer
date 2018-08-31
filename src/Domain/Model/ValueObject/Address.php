@@ -19,12 +19,13 @@ class Address implements ValueObject
         '01612' => 'Diesbar-Seußlitz'
     ];
 
-    public function __construct(string $city, int $zipCode)
+    public function __construct(string $city, string $zipCode)
     {
         $this->city = $city;
         $this->zipCode = $zipCode;
-        Assertion::keyExists(self::AREA, $zipCode, 'german zipcode only');
-        Assertion::inArray($city, self::AREA, ' german city only');
+        Assertion::keyExists(self::AREA, $zipCode, 'german zip code only');
+        Assertion::inArray($city, self::AREA, 'german city only');
+        Assertion::eq(self::AREA[$this->zipCode], $city, 'sorry, wrong zip code for ' . $city);
     }
 
     public function getZipCode():string
@@ -37,18 +38,29 @@ class Address implements ValueObject
         return $this->city;
     }
 
-    public static function getGermanyZipCodes():array
+    public static function getZipCodes():array
     {
         return array_keys(self::AREA);
     }
 
-    public static function getGermanyCities():array
+    public static function getCities():array
     {
         return array_values(self::AREA);
     }
 
+    public static function getZipCodeByCity(string $zipCode):string
+    {
+        return self::AREA[$zipCode];
+    }
+
+    public static function getCityByZipCode(string $city):string
+    {
+        $area = array_flip(self::AREA);
+        return $area[$city];
+    }
+
     public function __toString()
     {
-        return 'is in Germany, ' . $this->city . ' city, with zip code : ' . $this->zipCode;
+        return 'the Address is in Germany, ' . $this->city . ' city, with zip code : ' . $this->zipCode;
     }
 }

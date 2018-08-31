@@ -31,7 +31,7 @@ class JobEntity extends EntityModel
 
     public static function getCacheConnectorCode(): ?string
     {
-        return 'myHammer:cache:local';
+        return self::MY_HAMMER_LOCAL;
     }
 
     public static function getCacheIndices(): array

@@ -5,6 +5,9 @@ use MyHammer\Library\Entity\Entity;
 
 abstract class EntityModel extends Entity
 {
+    const MY_HAMMER_LOCAL = 'myHammer:cache:local';
+    const MY_HAMMER_SHARED = 'myHammer:cache:shared';
+
 
     public static function getDbConnectorCode(): string
     {

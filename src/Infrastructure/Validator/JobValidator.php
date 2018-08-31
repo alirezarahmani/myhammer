@@ -32,10 +32,10 @@ class JobValidator implements Validator
             ->minLength(5, 'title: allows between 5 to 50 characters')
             ->thatInArray('zip_code')
             ->notEmpty('Zip: should not be empty')
-            ->inArray(Address::getGermanyZipCodes(), 'zip: german zipcode only')
+            ->inArray(Address::getZipCodes(), 'zip: german zipcode only')
             ->thatInArray('city')
             ->notEmpty('city: should not be empty')
-            ->inArray(Address::getGermanyCities(), 'german city only')
+            ->inArray(Address::getCities(), 'german city only')
             ->thatInArray('description')
             ->notEmpty('description should not be empty');
         $assert->verifyNow();
