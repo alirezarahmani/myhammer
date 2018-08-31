@@ -1,0 +1,6 @@
+.env
+.idea/
+cache/
+composer.lock
+vendor/
+storage/
