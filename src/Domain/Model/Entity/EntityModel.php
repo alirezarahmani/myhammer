@@ -1,7 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: monsieuralireza
- * Date: 31/08/2018
- * Time: 18:12
- */
+namespace MyHammer\Domain\Model\Entity;
+
+use MyHammer\Library\Entity\Entity;
+
+abstract class EntityModel extends Entity
+{
+
+    public static function getDbConnectorCode(): string
+    {
+        return 'mysql.myHammer.model';
+    }
+}

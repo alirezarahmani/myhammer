@@ -2,6 +2,6 @@
 
 namespace MyHammer\Infrastructure\Validator;
 
-interface IValidator
+interface Validator
 {
 }

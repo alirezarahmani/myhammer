@@ -8,10 +8,9 @@ use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\Yaml\Yaml;
 
-
-class Boot
+class Container
 {
-    public static function getContainer()
+    public static function load()
     {
         $compiledClassName = 'MyCachedContainer';
         $cacheDir = getenv('PROJECT_DIR') . '/cache/';

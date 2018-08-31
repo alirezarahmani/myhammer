@@ -1,7 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: monsieuralireza
- * Date: 31/08/2018
- * Time: 18:09
- */
+namespace MyHammer\Domain\Model\Entity;
+
+use MyHammer\Library\Entity\EntityCacheIndex;
+use MyHammer\Library\Entity\Schema\TableSchema;
+
+class TradesmanEntity extends EntityModel
+{
+
+}

@@ -1,7 +1,3 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: monsieuralireza
- * Date: 31/08/2018
- * Time: 17:18
- */
+
+require_once getenv('VENDOR_DIR') . '/autoload.php';

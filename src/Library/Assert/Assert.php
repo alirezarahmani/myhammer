@@ -1,8 +1,8 @@
 <?php
-namespace Digikala\Supernova\Lib\Assert;
+namespace MyHammer\Library\Assert;
 
-use Digikala\Supernova\Lib\Entity\Entity;
-use Digikala\Supernova\Lib\Entity\Exception\EntityNotFoundException;
+use MyHammer\Library\Entity\Entity;
+use MyHammer\Library\Entity\Exception\EntityNotFoundException;
 
 class Assert extends \Assert\Assert
 {

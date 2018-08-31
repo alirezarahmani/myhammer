@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="Supernova Standard">
+<ruleset name="My Hammer Standard">
     <rule ref="PSR2"/>
     <rule ref="Generic.Files.LineLength">
         <properties>

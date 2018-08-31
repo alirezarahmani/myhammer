@@ -1,10 +1,10 @@
 <?php
 
-namespace MyHammer\Infrastructure;
+namespace MyHammer\Infrastructure\Request;
 
 use Symfony\Component\HttpFoundation\Request;
 
-class WebApiRequest implements IApiRequest
+class WebApiRequest implements ApiRequest
 {
     private $request;
 
@@ -13,7 +13,7 @@ class WebApiRequest implements IApiRequest
         $this->request = $request;
     }
 
-    public function get()
+    public function get(string $key)
     {
         // TODO: Implement get() method.
     }

@@ -2,7 +2,8 @@
 
 namespace MyHammer\Infrastructure\Request;
 
-interface IApiResponse
+interface ApiResponse
 {
     public function asJson(array $input);
+    public function error(string $message);
 }

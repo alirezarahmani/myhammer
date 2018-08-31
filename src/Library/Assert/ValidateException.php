@@ -1,5 +1,5 @@
 <?php
-namespace Digikala\Supernova\Lib\Assert;
+namespace MyHammer\Library\Assert;
 
 use Assert\InvalidArgumentException;
 use Assert\LazyAssertionException;

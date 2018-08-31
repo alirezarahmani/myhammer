@@ -2,7 +2,7 @@
 
 namespace MyHammer\Infrastructure\Request;
 
-interface IApiRequest
+interface ApiRequest
 {
-    public function get();
+    public function get(string $key);
 }

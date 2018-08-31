@@ -1,5 +1,5 @@
 <?php
-namespace Digikala\Supernova\Lib\Assert;
+namespace MyHammer\Library\Assert;
 
 // phpcs:disable
 /**

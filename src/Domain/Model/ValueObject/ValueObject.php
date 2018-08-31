@@ -1,7 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: monsieuralireza
- * Date: 31/08/2018
- * Time: 19:03
- */
+namespace MyHammer\Domain\Model\ValueObject;
+
+interface ValueObject
+{
+}
