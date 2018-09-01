@@ -5,7 +5,7 @@ namespace MyHammer\Domain\Model\ValueObject;
 // Reference: https://stackoverflow.com/questions/1368977/ddd-should-country-be-a-value-object-or-an-entity
 use MyHammer\Library\Assert\Assertion;
 
-class Address implements ValueObject
+class Address implements ValueObjectInterface
 {
     private $city;
     private $zipCode;

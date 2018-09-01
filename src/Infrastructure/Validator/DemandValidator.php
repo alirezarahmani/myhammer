@@ -2,28 +2,28 @@
 namespace MyHammer\Infrastructure\Validator;
 
 use MyHammer\Domain\Model\ValueObject\Address;
-use MyHammer\Infrastructure\Request\ApiRequest;
+use MyHammer\Infrastructure\Request\RequestInterface;
 use MyHammer\Library\Assert\Assert;
 
-class JobValidator implements Validator
+class DemandValidator implements ValidatorInterface
 {
-    private $validatedInputs;
+    private $input;
 
-    public function __construct(ApiRequest $request)
+    public function __construct(RequestInterface $request)
     {
-        $this->validate($request);
+        $this->input = $request;
     }
 
-    private function validate(ApiRequest $request)
+    public function validate()
     {
-        $title = $request->get('title');
-        $zipCode =  $request->get('zip_code');
+        $title = $this->input->get('title');
+        $zipCode =  $this->input->get('zip_code');
 
         $assert = Assert::lazy()->initArray([
             'title' => $title,
             'zipcode' => $zipCode,
-            'city' => $request->get('city'),
-            'description' => $request->get('description'),
+            'city' => $this->input->get('city'),
+            'description' => $this->input->get('description'),
         ]);
         $assert
             ->thatInArray('title')
@@ -39,13 +39,6 @@ class JobValidator implements Validator
             ->thatInArray('description')
             ->notEmpty('description should not be empty');
         $assert->verifyNow();
-        $bind = $assert->getArray();
-        $bind['address'] = new Address($title, $zipCode);
-        $this->validatedInputs = array_diff_key($bind, array_flip(['title', 'zip_code']));
     }
 
-    public function getData():array
-    {
-        return $this->validatedInputs;
-    }
 }

@@ -4,7 +4,7 @@ namespace MyHammer\Infrastructure\Request;
 
 use Symfony\Component\HttpFoundation\Request;
 
-class ApplicationApiRequest implements ApiRequest
+class WebRequestInterface implements RequestInterface
 {
     private $request;
 

@@ -10,7 +10,7 @@ use MyHammer\Library\Entity\Schema\TableSchema;
 use MyHammer\Library\Entity\Schema\TextColumn;
 use MyHammer\Library\Entity\Schema\VarcharColumn;
 
-class JobEntity extends EntityModel
+class DemandEntity extends EntityModel
 {
 
     const INDEX_CATEGORY = 'category';
@@ -18,7 +18,7 @@ class JobEntity extends EntityModel
     protected static function getTableSchemaDefinition(): TableSchema
     {
         return new TableSchema(
-            'jobs',
+            'demands',
             IntColumn::create('id')->primary()->autoincrement(),
             VarcharColumn::create('title', 50)->allowNull(false),
             ReferenceJsonColumn::create('category', CategoryEntity::class),

@@ -2,18 +2,19 @@
 namespace MyHammer\Domain\Model;
 
 use MyHammer\Domain\Model\Entity\CategoryEntity;
-use MyHammer\Domain\Model\Entity\JobEntity;
-use MyHammer\Infrastructure\Validator\Validator;
+use MyHammer\Domain\Model\Entity\DemandEntity;
+use MyHammer\Infrastructure\Request\ApplicationRequest;
+use MyHammer\Infrastructure\Validator\ValidatorInterface;
 use MyHammer\Library\Assert\Assertion;
 
-class JobModel
+class DemandModel
 {
-    public function add(Validator $validator)
+    public function add(ApplicationRequest $request, ValidatorInterface $validator)
     {
-        $data = $validator->getData();
+        $data = $validator->validate($request);
         $category = CategoryEntity::getById($data['category_id']);
 
-        $job = JobEntity::newInstance();
+        $job = DemandEntity::newInstance();
         $job->setTitle($data['title']);
         $job->setCategoryId($category->getId());
         $job->setAddress($data['address']);

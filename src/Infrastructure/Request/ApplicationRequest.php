@@ -2,9 +2,10 @@
 
 namespace MyHammer\Infrastructure\Request;
 
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
-class WebApiRequest implements ApiRequest
+class ApplicationRequest extends ParameterBag implements RequestInterface
 {
     private $request;
 
