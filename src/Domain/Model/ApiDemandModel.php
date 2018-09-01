@@ -3,22 +3,21 @@ namespace MyHammer\Domain\Model;
 
 use MyHammer\Domain\Model\Entity\CategoryEntity;
 use MyHammer\Domain\Model\Entity\DemandEntity;
-use MyHammer\Infrastructure\Request\ApplicationRequest;
-use MyHammer\Infrastructure\Validator\ValidatorInterface;
-use MyHammer\Library\Assert\Assertion;
+use MyHammer\Infrastructure\Request\ApiRequestInterface;
+use MyHammer\Infrastructure\Validator\ApiValidatorInterface;
 
-class DemandModel
+class ApiDemandModel
 {
-    public function add(ApplicationRequest $request, ValidatorInterface $validator)
+    public function add(ApiRequestInterface $request, ApiValidatorInterface $validator)
     {
-        $data = $validator->validate($request);
-        $category = CategoryEntity::getById($data['category_id']);
+        $validator->validate($request);
+        $category = CategoryEntity::getById($request->get('category_id'));
 
-        $job = DemandEntity::newInstance();
-        $job->setTitle($data['title']);
-        $job->setCategoryId($category->getId());
-        $job->setAddress($data['address']);
-        $job->setDescription($data['description']);
-        $job->flush();
+        $demand = DemandEntity::newInstance();
+        $demand->setTitle($request->get('title'));
+        $demand->setCategoryId($category->getId());
+        $demand->setAddress($request->get('address'));
+        $demand->setDescription($request->get('description'));
+        $demand->flush();
     }
 }

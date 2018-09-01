@@ -4,6 +4,7 @@ namespace MyHammer\Domain\Model\Entity;
 use MyHammer\Domain\Model\ValueObject\Address;
 use MyHammer\Library\Entity\EntityCacheIndex;
 use MyHammer\Library\Entity\Schema\DateColumn;
+use MyHammer\Library\Entity\Schema\DateTimeColumn;
 use MyHammer\Library\Entity\Schema\IntColumn;
 use MyHammer\Library\Entity\Schema\ReferenceJsonColumn;
 use MyHammer\Library\Entity\Schema\TableSchema;
@@ -25,7 +26,9 @@ class DemandEntity extends EntityModel
             IntColumn::create('zipcode', IntColumn::MAX_SIZE_65_THOUSAND)->allowNull(false),
             VarcharColumn::create('city', 10)->allowNull(false),
             DateColumn::create('date')->allowNull(false),
-            TextColumn::create('description')->allowNull(false)
+            TextColumn::create('description')->allowNull(false),
+            DateTimeColumn::create('created_at')->allowNull(false),
+            DateTimeColumn::create('updated_at')->allowNull(true)
         );
     }
 
@@ -88,5 +91,25 @@ class DemandEntity extends EntityModel
         $this->setField('description', $title);
 
         return $this;
+    }
+
+    public function getCreatedAt() : \DateTime
+    {
+        return $this->mapToDateTime('created_at');
+    }
+
+    public function setCreatedAt(\DateTime $createdAt) : self
+    {
+        return $this->mapFromDateTime('created_at', $createdAt);
+    }
+
+    public function getUpdatedAt() : \DateTime
+    {
+        return $this->mapToDateTime('updated_at');
+    }
+
+    public function setUpdatedAt(\DateTime $createdAt) : self
+    {
+        return $this->mapFromDateTime('updated_at', $createdAt);
     }
 }

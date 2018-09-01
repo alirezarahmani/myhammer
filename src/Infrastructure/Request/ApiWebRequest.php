@@ -2,19 +2,15 @@
 
 namespace MyHammer\Infrastructure\Request;
 
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
-class WebRequestInterface implements RequestInterface
+class ApiWebRequest extends ParameterBag implements ApiRequestInterface
 {
     private $request;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
-    }
-
-    public function get(string $key)
-    {
-        // TODO: Implement get() method.
     }
 }

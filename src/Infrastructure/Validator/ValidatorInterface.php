@@ -2,7 +2,9 @@
 
 namespace MyHammer\Infrastructure\Validator;
 
-interface ValidatorInterface
+use MyHammer\Infrastructure\Request\ApiRequestInterface;
+
+interface ApiValidatorInterface
 {
-    public function validate();
+    public function validate(ApiRequestInterface $request);
 }

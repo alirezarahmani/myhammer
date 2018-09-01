@@ -2,28 +2,21 @@
 namespace MyHammer\Infrastructure\Validator;
 
 use MyHammer\Domain\Model\ValueObject\Address;
-use MyHammer\Infrastructure\Request\RequestInterface;
+use MyHammer\Infrastructure\Request\ApiRequestInterface;
 use MyHammer\Library\Assert\Assert;
 
-class DemandValidator implements ValidatorInterface
+class ApiDemandValidator implements ApiValidatorInterface
 {
-    private $input;
-
-    public function __construct(RequestInterface $request)
+    public function validate(ApiRequestInterface $request)
     {
-        $this->input = $request;
-    }
-
-    public function validate()
-    {
-        $title = $this->input->get('title');
-        $zipCode =  $this->input->get('zip_code');
+        $title = $request->get('title');
+        $zipCode =  $request->get('zip_code');
 
         $assert = Assert::lazy()->initArray([
             'title' => $title,
             'zipcode' => $zipCode,
-            'city' => $this->input->get('city'),
-            'description' => $this->input->get('description'),
+            'city' => $request->get('city'),
+            'description' => $request->get('description'),
         ]);
         $assert
             ->thatInArray('title')
@@ -40,5 +33,4 @@ class DemandValidator implements ValidatorInterface
             ->notEmpty('description should not be empty');
         $assert->verifyNow();
     }
-
 }

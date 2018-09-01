@@ -1,8 +1,11 @@
 <?php
 namespace MyHammer\Domain\Model\ValueObject;
 
-// Note: Address like City, Zip Code and Country names Can be value object
-// Reference: https://stackoverflow.com/questions/1368977/ddd-should-country-be-a-value-object-or-an-entity
+/**
+/* Note: Address like City, Zip Code and Country names Can be value object,
+/* I assume city and zip code are fixed and won't change, in this system.
+/* Reference: https://stackoverflow.com/questions/1368977/ddd-should-country-be-a-value-object-or-an-entity
+**/
 use MyHammer\Library\Assert\Assertion;
 
 class Address implements ValueObjectInterface
@@ -50,12 +53,14 @@ class Address implements ValueObjectInterface
 
     public static function getZipCodeByCity(string $zipCode):string
     {
+        Assertion::keyExists(self::AREA, $zipCode, 'sorry, zip code is not valid!');
         return self::AREA[$zipCode];
     }
 
     public static function getCityByZipCode(string $city):string
     {
         $area = array_flip(self::AREA);
+        Assertion::keyExists($area, $city, 'sorry, the city does not exist in germany');
         return $area[$city];
     }
 

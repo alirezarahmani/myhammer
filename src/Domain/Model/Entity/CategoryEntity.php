@@ -2,7 +2,9 @@
 namespace MyHammer\Domain\Model\Entity;
 
 use MyHammer\Library\Entity\EntityCacheIndex;
+use MyHammer\Library\Entity\Schema\IntColumn;
 use MyHammer\Library\Entity\Schema\TableSchema;
+use MyHammer\Library\Entity\Schema\VarcharColumn;
 
 class CategoryEntity extends EntityModel
 {
@@ -14,16 +16,13 @@ class CategoryEntity extends EntityModel
         return new TableSchema(
             'banners_categories',
             IntColumn::create('id')->primary()->autoincrement(),
-            ReferenceIntColumn::create('banner_id', BannerEntity::class)
-                ->allowNull(false),
-            ReferenceIntColumn::create('category_id', CategoryEntity::class)
-                ->allowNull(false)
+            VarcharColumn::create('title')->allowNull(false)->inUniqueIndex()
         );
     }
 
     public static function getCacheConnectorCode(): ?string
     {
-        return 'myHammer:cache:local';
+        return self::MY_HAMMER_LOCAL;
     }
 
     public static function getCacheIndices(): array
@@ -36,30 +35,5 @@ class CategoryEntity extends EntityModel
     public function setId(int $id) : self
     {
         return $this->setField('id', $id);
-    }
-
-    public function getBannerId() : int
-    {
-        return $this->getField('banner_id');
-    }
-
-    public function setBannerId(int $bannerId) : self
-    {
-        return $this->setField('banner_id', $bannerId);
-    }
-
-    public function getCategoryId() : int
-    {
-        return $this->getField('category_id');
-    }
-
-    public function setCategoryId(int $categoryId) : self
-    {
-        return $this->setField('category_id', $categoryId);
-    }
-
-    public function getCategory() : CategoryEntity
-    {
-        return $this->getOneToOneEntity('category_id');
     }
 }
