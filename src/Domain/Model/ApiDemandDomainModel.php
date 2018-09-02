@@ -16,6 +16,7 @@ class ApiDemandDomainModel
         $demand->setAddress($request->get('address'));
         $demand->setExecutionTime($request->get('execution_time'));
         $demand->setDescription($request->get('description'));
+        // @todo: fix UserID, Remove Hard Code
         $demand->setUserId(1);
         $demand->flush();
     }

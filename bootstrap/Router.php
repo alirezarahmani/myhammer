@@ -19,9 +19,7 @@ class Router
         $apiRequest = new ApiWebRequest($request);
         $apiResponse = new ApiJsonResponse();
         $route = $request->getRequestUri();
-        if ($request->headers->has('device-type') &&
-            strpos($request->headers->get('device-type'), 'mobile') !== false
-        ) {
+        if (self::isMobileRequest($request)) {
             $apiRequest = new ApiApplicationRequest($request);
         }
         switch ($request->getMethod()) {
@@ -30,10 +28,10 @@ class Router
                     $demandsController->createAction($apiRequest, $apiResponse);
                 }
                 break;
-            case 'YYY':
+            case 'GET':
                 // @TODO: complete
                 break;
-            case 'GET':
+            case 'PUT':
                 $route = explode('/', $route);
                 if (isset($route[2])) {
                     if (preg_match('/^[1-9][0-9]*$/', $route[2])
@@ -48,5 +46,15 @@ class Router
                 break;
         }
         return new JsonResponse('Not Found', 404);
+    }
+
+    public static function isMobileRequest(Request $request)
+    {
+        if ($request->headers->has('device-type') &&
+            strpos($request->headers->get('device-type'), 'mobile') !== false
+        ) {
+            return true;
+        }
+        return false;
     }
 }
