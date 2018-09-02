@@ -5,7 +5,6 @@ use MyHammer\Domain\Model\Entity\DemandEntity;
 use MyHammer\Infrastructure\Request\ApiRequestInterface;
 use MyHammer\Infrastructure\Validator\ApiValidatorInterface;
 
-
 class ApiDemandDomainModel
 {
     public function add(ApiRequestInterface $request, ApiValidatorInterface $validator)
@@ -15,8 +14,9 @@ class ApiDemandDomainModel
         $demand->setTitle($request->get('title'));
         $demand->setCategoryId($request->get('category_id'));
         $demand->setAddress($request->get('address'));
-        $demand->setExecutionTime($request->get('address'));
+        $demand->setExecutionTime($request->get('execution_time'));
         $demand->setDescription($request->get('description'));
+        $demand->setUserId(1);
         $demand->flush();
     }
 }
