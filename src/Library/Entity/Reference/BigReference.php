@@ -7,9 +7,9 @@ use MyHammer\Library\Entity\Exception\ReferenceNotFoundException;
 use MyHammer\Library\Entity\Schema\BaseReferenceIntColumn;
 use MyHammer\Library\Entity\Schema\CachedReferenceIntColumn;
 use MyHammer\Library\Entity\SortableEntityCacheIndex;
-use Digikala\Supernova\Service\Mysql\Expression;
-use Digikala\Supernova\Service\Mysql\Pager;
-use Digikala\Supernova\Service\TimeService;
+use MyHammer\Library\Service\Mysql\Expression;
+use MyHammer\Library\Service\Mysql\Pager;
+use MyHammer\Library\Service\TimeService;
 
 abstract class BigReference extends ManyReference implements \Iterator
 {

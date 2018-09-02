@@ -2,8 +2,8 @@
 namespace MyHammer\Library\Entity\Schema;
 
 use MyHammer\Library\Exception\InvalidArgumentException;
-use Digikala\Supernova\Service\TimeService;
-use Digikala\Supernova\Services;
+use MyHammer\Library\Service\TimeService;
+use MyHammer\Library\Services;
 
 class TableSchema
 {

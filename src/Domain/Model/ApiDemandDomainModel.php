@@ -19,4 +19,17 @@ class ApiDemandDomainModel
         $demand->setUserId(1);
         $demand->flush();
     }
+
+    public function edit(int $id, ApiRequestInterface $request, ApiValidatorInterface $validator)
+    {
+        $validator->validate($request);
+        $demand = DemandEntity::getById($id);
+        $demand->setTitle($request->get('title'));
+        $demand->setCategoryId($request->get('category_id'));
+        $demand->setAddress($request->get('address'));
+        $demand->setExecutionTime($request->get('execution_time'));
+        $demand->setDescription($request->get('description'));
+        $demand->setUserId(1);
+        $demand->flush();
+    }
 }

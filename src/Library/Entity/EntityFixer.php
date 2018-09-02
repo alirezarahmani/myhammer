@@ -2,9 +2,9 @@
 namespace MyHammer\Library\Entity;
 
 use MyHammer\Library\Entity;
-use Digikala\Supernova\Service\Mysql\Expression;
-use Digikala\Supernova\Service\MysqlService;
-use Digikala\Supernova\Services;
+use MyHammer\Library\Service\Mysql\Expression;
+use MyHammer\Library\Service\MysqlService;
+use MyHammer\Library\Services;
 
 class EntityFixer
 {

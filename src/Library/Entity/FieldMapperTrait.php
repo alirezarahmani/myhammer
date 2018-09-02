@@ -1,9 +1,9 @@
 <?php
 namespace MyHammer\Library\Entity;
 
-use Digikala\Supernova\Service\Storage\DirectoryStorage;
-use Digikala\Supernova\Service\Storage\FileStorage;
-use Digikala\Supernova\Service\Storage\ImageStorage;
+use MyHammer\Library\Service\Storage\DirectoryStorage;
+use MyHammer\Library\Service\Storage\FileStorage;
+use MyHammer\Library\Service\Storage\ImageStorage;
 
 trait FieldMapperTrait
 {

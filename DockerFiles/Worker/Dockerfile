@@ -27,6 +27,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get install -y --forc
     php7.2-sybase \
     php7.2-opcache \
     php7.2-apcu \
+    php7.2-mongodb \
     php7.2-xml \
     php7.2-redis \
     php7.2-intl \
@@ -39,9 +40,10 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get install -y --forc
     git \
     unzip \
     openssh-server \
+    cron \
     p7zip \
     lzma \
-    nano \
+    nano
 
 # configure php-fpm
 RUN sed -i 's/^;*clear_env = .*/clear_env = no/' /etc/php/7.2/fpm/pool.d/www.conf
@@ -94,6 +96,8 @@ ADD memcached.ini /etc/php/7.2/fpm/conf.d/25-memcached.ini
 ADD memcached.ini /etc/php/7.2/cli/conf.d/25-memcached.ini
 
 ADD default.conf /etc/nginx/conf.d/default.conf
+ADD default.conf /etc/nginx/sites-enabled/default
+ADD default.conf /etc/nginx/sites-available/default
 
 EXPOSE 22 443 80
 WORKDIR /var/www/

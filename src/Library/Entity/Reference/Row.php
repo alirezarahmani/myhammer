@@ -6,7 +6,7 @@ use MyHammer\Library\Entity\FieldMapperTrait;
 use MyHammer\Library\Entity\Reference;
 use MyHammer\Library\Entity\Schema\BaseReferenceIntColumn;
 use MyHammer\Library\Entity\Schema\ReferenceJsonColumn;
-use Digikala\Supernova\Services;
+use MyHammer\Library\Services;
 
 class Row implements \ArrayAccess, \Countable
 {
@@ -147,7 +147,7 @@ class Row implements \ArrayAccess, \Countable
     /**
      * @param string $entityIdFieldName
      * @return Entity|mixed
-     * @throws \Digikala\Supernova\Lib\Entity\Exception\EntityNotFoundException
+     * @throws \MyHammer\Library\Lib\Entity\Exception\EntityNotFoundException
      */
     protected function getOneToOneEntity(string $entityIdFieldName) : ?Entity
     {
@@ -169,7 +169,7 @@ class Row implements \ArrayAccess, \Countable
     /**
      * @param string $entityIdFieldName
      * @return Entity[]
-     * @throws \Digikala\Supernova\Lib\Entity\Exception\EntityNotFoundException
+     * @throws \MyHammer\Library\Lib\Entity\Exception\EntityNotFoundException
      * @throws \Exception
      */
     protected function getOneToManyEntities(string $entityIdFieldName) : array

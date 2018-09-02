@@ -11,15 +11,15 @@ use MyHammer\Library\Entity\Schema\JSONColumn;
 use MyHammer\Library\Entity\Schema\ReferenceJsonColumn;
 use MyHammer\Library\Entity\Schema\TableSchema;
 use MyHammer\Library\Service;
-use Digikala\Supernova\Listener\RedisQueuesListener;
-use Digikala\Supernova\Service\CacheService;
-use Digikala\Supernova\Service\ErrorLogService;
-use Digikala\Supernova\Service\Mysql\Expression;
-use Digikala\Supernova\Service\Mysql\Pager;
-use Digikala\Supernova\Service\MysqlService;
-use Digikala\Supernova\Service\TimeService;
-use Digikala\Supernova\Services;
-use Digikala\Supernova\Supernova;
+use MyHammer\Library\Listener\RedisQueuesListener;
+use MyHammer\Library\Service\CacheService;
+use MyHammer\Library\Service\ErrorLogService;
+use MyHammer\Library\Service\Mysql\Expression;
+use MyHammer\Library\Service\Mysql\Pager;
+use MyHammer\Library\Service\MysqlService;
+use MyHammer\Library\Service\TimeService;
+use MyHammer\Library\Services;
+use MyHammer\Library\Supernova;
 
 abstract class Entity implements DirtyInterface
 {

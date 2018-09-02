@@ -1,0 +1,5 @@
+mysql:
+  default:
+    uri: mysql:host=mysql;port=3306;dbname=myhammer;charset=utf8mb4
+    user: root
+    pass: root

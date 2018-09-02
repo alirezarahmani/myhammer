@@ -2,9 +2,9 @@
 namespace MyHammer\Library\Entity;
 
 use MyHammer\Library\Entity\Schema\TableSchema;
-use Digikala\Supernova\Service\CacheService;
-use Digikala\Supernova\Service\MysqlService;
-use Digikala\Supernova\Services;
+use MyHammer\Library\Service\CacheService;
+use MyHammer\Library\Service\MysqlService;
+use MyHammer\Library\Services;
 
 abstract class Reference extends Sub implements DirtyInterface
 {

@@ -1,14 +1,14 @@
 <?php
 namespace MyHammer\Library\Entity;
 
-use Digikala\Supernova\Event\Entity\EntityAddedEvent;
-use Digikala\Supernova\Event\Entity\EntityAddingEvent;
-use Digikala\Supernova\Event\Entity\EntityDeletedEvent;
-use Digikala\Supernova\Event\Entity\EntityDeletingEvent;
-use Digikala\Supernova\Event\Entity\EntityUpdatedEvent;
-use Digikala\Supernova\Event\Entity\EntityUpdatingEvent;
-use Digikala\Supernova\Events;
-use Digikala\Supernova\Services;
+use MyHammer\Library\Event\Entity\EntityAddedEvent;
+use MyHammer\Library\Event\Entity\EntityAddingEvent;
+use MyHammer\Library\Event\Entity\EntityDeletedEvent;
+use MyHammer\Library\Event\Entity\EntityDeletingEvent;
+use MyHammer\Library\Event\Entity\EntityUpdatedEvent;
+use MyHammer\Library\Event\Entity\EntityUpdatingEvent;
+use MyHammer\Library\Events;
+use MyHammer\Library\Services;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 abstract class EntityEventListener implements EventSubscriberInterface

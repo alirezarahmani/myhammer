@@ -1,7 +1,7 @@
 <?php
 namespace MyHammer\Library\Entity\Reference;
 
-use Digikala\Supernova\Service\Mysql\Expression;
+use MyHammer\Library\Service\Mysql\Expression;
 
 abstract class SmallReference extends ManyReference implements \Countable, \Iterator
 {

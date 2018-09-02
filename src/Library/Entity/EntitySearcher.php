@@ -2,7 +2,7 @@
 namespace MyHammer\Library\Entity;
 
 use MyHammer\Library\Service;
-use Digikala\Supernova\Supernova;
+use MyHammer\Library\Supernova;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 

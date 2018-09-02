@@ -6,15 +6,12 @@ services:
       - ${LOCAL_IP}:${MY_HAMMER_SERVER_PORT}:81
       - ${LOCAL_IP}:${PHP_SSH_PORT}:22
     depends_on:
-      - redis
       - mysql
       - memcached
     links:
-      - redis
       - mysql
       - memcached
     environment:
-      MYHAMMER_REDIS_REV: 1
       MYHAMMER_MYSQL_HOST: mysql
       MYHAMMER_MYSQL_DATABASE: myhammer
       MYHAMMER_MYSQL_USER: root
@@ -25,9 +22,6 @@ services:
     volumes:
       - ${LOCAL_DEV_DIR}:/var/www
       - ${LOCAL_DEV_DIR}/storage:/var/www/storage
-      - data_composer:/root/.composer
-  redis:
-    image: redis
   mysql:
     build: ./DockerFiles/Mysql
     ports:
