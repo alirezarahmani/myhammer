@@ -7,17 +7,17 @@ use MyHammer\Library\Entity\Schema\IntColumn;
 use MyHammer\Library\Entity\Schema\TableSchema;
 use MyHammer\Library\Entity\Schema\VarcharColumn;
 
-class TradesmanEntity extends EntityModel
+class UserEntity extends EntityModel
 {
 
-    const INDEX_CATEGORY = 'tradesman_title';
+    const INDEX_EMAIL = 'email';
 
     protected static function getTableSchemaDefinition(): TableSchema
     {
         return new TableSchema(
             'tradesman',
             IntColumn::create('id')->primary()->autoincrement(),
-            VarcharColumn::create('name')->allowNull(false)->inUniqueIndex(self::INDEX_CATEGORY),
+            VarcharColumn::create('email')->allowNull(false)->inUniqueIndex(self::INDEX_EMAIL),
             DateTimeColumn::create('created_at')->allowNull(false),
             DateTimeColumn::create('updated_at')->allowNull(true)
         );
@@ -31,7 +31,7 @@ class TradesmanEntity extends EntityModel
     public static function getCacheIndices(): array
     {
         return [
-            self::INDEX_CATEGORY => new EntityCacheIndex(true, ['name'], 1000)
+            self::INDEX_CATEGORY => new EntityCacheIndex(true, ['email'], 1000)
         ];
     }
 
@@ -42,12 +42,12 @@ class TradesmanEntity extends EntityModel
 
     public function getName(): string
     {
-        return $this->getField('name');
+        return $this->getField('email');
     }
 
     public function setName(string $title): self
     {
-        $this->setField('name', $title);
+        $this->setField('email', $title);
 
         return $this;
     }

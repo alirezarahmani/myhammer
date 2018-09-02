@@ -1,9 +1,12 @@
 <?php
 namespace MyHammer\Infrastructure\Validator;
 
+use MyHammer\Domain\Model\Entity\CategoryEntity;
 use MyHammer\Domain\Model\ValueObject\Address;
 use MyHammer\Infrastructure\Request\ApiRequestInterface;
 use MyHammer\Library\Assert\Assert;
+use MyHammer\Library\Assert\ValidateException;
+use MyHammer\Library\Entity\Exception\EntityNotFoundException;
 
 class ApiDemandValidator implements ApiValidatorInterface
 {
@@ -29,8 +32,11 @@ class ApiDemandValidator implements ApiValidatorInterface
             ->thatInArray('city')
             ->notEmpty('city: should not be empty')
             ->inArray(Address::getCities(), 'german city only')
+            ->thatInArray('category_id')
+            ->satisfy(CustomValidations::isValidCategoryId(), 'not valid category id')
             ->thatInArray('description')
             ->notEmpty('description should not be empty');
+
         $assert->verifyNow();
     }
 }

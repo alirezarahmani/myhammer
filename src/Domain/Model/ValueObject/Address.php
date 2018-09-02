@@ -2,7 +2,7 @@
 namespace MyHammer\Domain\Model\ValueObject;
 
 /**
-/* Note: Address like City, Zip Code and Country names Can be value object,
+/* Note: Address like City, Zip Code and Country names Can be a value object,
 /* I assume city and zip code are fixed and won't change, in this system.
 /* Reference: https://stackoverflow.com/questions/1368977/ddd-should-country-be-a-value-object-or-an-entity
 **/

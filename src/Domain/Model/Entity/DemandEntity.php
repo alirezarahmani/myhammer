@@ -3,8 +3,8 @@ namespace MyHammer\Domain\Model\Entity;
 
 use MyHammer\Domain\Model\ValueObject\Address;
 use MyHammer\Library\Entity\EntityCacheIndex;
-use MyHammer\Library\Entity\Schema\DateColumn;
 use MyHammer\Library\Entity\Schema\DateTimeColumn;
+use MyHammer\Library\Entity\Schema\EnumColumn;
 use MyHammer\Library\Entity\Schema\IntColumn;
 use MyHammer\Library\Entity\Schema\ReferenceJsonColumn;
 use MyHammer\Library\Entity\Schema\TableSchema;
@@ -16,16 +16,22 @@ class DemandEntity extends EntityModel
 
     const INDEX_CATEGORY = 'category';
 
+    const EXECUTION_TIMES = [self::IMMEDIATELY, self::UP_3DAYS, self::UP_WEEK];
+    const IMMEDIATELY = 'immediately';
+    const UP_3DAYS = '3days';
+    const UP_WEEK = 'week';
+
     protected static function getTableSchemaDefinition(): TableSchema
     {
         return new TableSchema(
             'demands',
             IntColumn::create('id')->primary()->autoincrement(),
             VarcharColumn::create('title', 50)->allowNull(false),
-            ReferenceJsonColumn::create('category', CategoryEntity::class),
+            ReferenceJsonColumn::create('category_id', CategoryEntity::class),
+            ReferenceJsonColumn::create('user_id', UserEntity::class),
             IntColumn::create('zipcode', IntColumn::MAX_SIZE_65_THOUSAND)->allowNull(false),
             VarcharColumn::create('city', 10)->allowNull(false),
-            DateColumn::create('date')->allowNull(false),
+            EnumColumn::create('execution_time', self::EXECUTION_TIMES)->allowNull(false),
             TextColumn::create('description')->allowNull(false),
             DateTimeColumn::create('created_at')->allowNull(false),
             DateTimeColumn::create('updated_at')->allowNull(true)
@@ -54,6 +60,18 @@ class DemandEntity extends EntityModel
     public function getCategory(): ?CategoryEntity
     {
         return $this->getOneToOneEntity('category_id');
+    }
+
+    public function setUserId(?int $userId): self
+    {
+        $this->setField('user_id', $userId);
+
+        return $this;
+    }
+
+    public function getUser(): ?UserEntity
+    {
+        return $this->getOneToOneEntity('user_id');
     }
 
     public function getTitle(): string
