@@ -15,6 +15,7 @@ class ApiDemandDomainModel
         $demand->setTitle($request->get('title'));
         $demand->setCategoryId($request->get('category_id'));
         $demand->setAddress($request->get('address'));
+        $demand->setExecutionTime($request->get('address'));
         $demand->setDescription($request->get('description'));
         $demand->flush();
     }

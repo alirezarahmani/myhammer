@@ -86,6 +86,18 @@ class DemandEntity extends EntityModel
         return $this;
     }
 
+    public function getExecutionTime(): string
+    {
+        return $this->getField('execution_time');
+    }
+
+    public function setExecutionTime(string $executionTime): self
+    {
+        $this->setField('execution_time', $executionTime);
+
+        return $this;
+    }
+
     public function getAddress(): Address
     {
         return (new Address($this->getField('city'), $this->getField('zipcode')));

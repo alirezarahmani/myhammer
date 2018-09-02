@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ApiApplicationRequest extends ParameterBag implements ApiRequestInterface
 {
+    /**
+     * @var Request
+     */
     private $request;
 
     public function __construct(Request $request)
