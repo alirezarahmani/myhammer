@@ -16,7 +16,7 @@ class ApiDemandDomainModel
         $demand->setAddress($request->get('address'));
         $demand->setExecutionTime($request->get('execution_time'));
         $demand->setDescription($request->get('description'));
-        // @todo: fix UserID, Remove Hard Code
+        // @todo: fix UserID, Remove HardCode
         $demand->setUserId(1);
         $demand->flush();
     }
@@ -30,6 +30,7 @@ class ApiDemandDomainModel
         $demand->setAddress($request->get('address'));
         $demand->setExecutionTime($request->get('execution_time'));
         $demand->setDescription($request->get('description'));
+        // @todo: fix UserID, Remove HardCode
         $demand->setUserId(1);
         $demand->flush();
     }
