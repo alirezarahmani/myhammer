@@ -8,9 +8,9 @@ class CustomValidations
 {
     public static function isValidCategoryId()
     {
-        return function ($brandId) {
+        return function ($categoryId) {
             try {
-                CategoryEntity::getById($brandId);
+                CategoryEntity::getById($categoryId);
                 return true;
             } catch (EntityNotFoundException $exception) {
                 return false;

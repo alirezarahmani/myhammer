@@ -4,33 +4,26 @@ namespace MyHammer\Infrastructure\Request;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class ApiJsonResponse extends JsonResponse implements ApiResponseInterface
+class ApiJsonResponse implements ApiResponseInterface
 {
-    private $message;
-    protected $data;
-
-    public function error(string $message)
+    public function error(array $errors)
     {
-        $this->message = $message;
-        return $this;
+        return new JsonResponse(
+            [
+            'Data' => '',
+            'Status' => false,
+            'Message' => $errors
+        ]);
     }
 
-    public function setData($data = array())
+    public function success($data = [])
     {
-        return parent::setData($data);
-    }
+        return new JsonResponse(
+            [
+                'Data' => $data,
+                'Status' => true,
+                'Message' => ''
+            ]);
 
-    public function setJson($data)
-    {
-        return parent::setJson(
-            json_encode(
-                [
-                    'Data' => json_decode($data),
-                    'Status' => $this->message ? 'True' : 'False',
-                    'Message' => $this->message
-                ],
-                $this->encodingOptions
-            )
-        );
     }
 }

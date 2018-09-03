@@ -16,7 +16,7 @@ use Symfony\Component\Routing\RouteCollection;
 
 class Router
 {
-    //@todo: create a router event and remove this
+    //@todo: create a routerEvent and remove this
     public static function init()
     {
         try {
@@ -32,12 +32,10 @@ class Router
             $context->fromRequest($request);
             $matcher = new UrlMatcher(self::initRoutes(), $context);
             $parameters = $matcher->match($request->getRequestUri());
-
             if(in_array('id', $parameters)) {
-                 return (new $parameters['_controller'])->{$parameters['_method']}($parameters['id'],$apiRequest, $apiResponse);
+                return call_user_func([ (new $parameters['_controller']), $parameters['_method']], $parameters['id'], $apiRequest, $apiResponse);
             }
-
-            return (new $parameters['_controller'])->{$parameters['_method']}($apiRequest, $apiResponse);
+            return call_user_func([ (new $parameters['_controller']), $parameters['_method']], $apiRequest, $apiResponse);
         } catch (ResourceNotFoundException | MethodNotAllowedException $e) {
             return new JsonResponse('not found',404);
         }

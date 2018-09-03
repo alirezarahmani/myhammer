@@ -34,6 +34,7 @@ class ApiDemandValidator implements ApiValidatorInterface
             ->thatInArray('execution_time')
             ->inArray(DemandEntity::EXECUTION_TIMES, 'Execution Time: sorry please make sure you select correct execution time from list')
             ->thatInArray('category_id')
+            ->notEmpty('category Id: should not be empty')
             ->satisfy(CustomValidations::isValidCategoryId(), 'Category ID: not a valid category id')
             ->thatInArray('description')
             ->notEmpty('Description: should not be empty');

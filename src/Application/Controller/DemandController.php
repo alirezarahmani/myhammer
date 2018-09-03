@@ -3,6 +3,7 @@
 namespace MyHammer\Application\Controller;
 
 use MyHammer\Domain\Model\ApiDemandDomainModel;
+use MyHammer\Infrastructure\Repositories\DemandRepository;
 use MyHammer\Infrastructure\Request\ApiRequestInterface;
 use MyHammer\Infrastructure\Request\ApiResponseInterface;
 use MyHammer\Infrastructure\Validator\ApiDemandValidator;
@@ -14,22 +15,22 @@ class DemandController
     public function createAction(ApiRequestInterface $request, ApiResponseInterface $response)
     {
         try {
-            (new ApiDemandDomainModel())->add($request, new ApiDemandValidator());
-            return $response;
+            (new ApiDemandDomainModel())->add($request, new ApiDemandValidator(), new DemandRepository());
+            return $response->success();
         } catch (ValidateException $e) {
-            return $response->error($e->getMessage());
+            return $response->error($e->getErrors());
         }
     }
 
     public function editAction(int $id, ApiRequestInterface $request, ApiResponseInterface $response)
     {
         try {
-            (new ApiDemandDomainModel())->edit($id, $request, new ApiDemandValidator());
-            return $response;
+            (new ApiDemandDomainModel())->edit($id, $request, new ApiDemandValidator(), new DemandRepository());
+            return $response->success();
         } catch (ValidateException $e) {
-            return $response->error($e->getMessage());
+            return $response->error($e->getErrors());
         } catch (EntityNotFoundException $e) {
-            return $response->error('Sorry, no demand found with: ' . $id);
+            return $response->error(['Sorry, no demand found with: ' . $id]);
         }
     }
 }

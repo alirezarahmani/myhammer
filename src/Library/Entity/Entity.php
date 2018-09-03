@@ -23,8 +23,6 @@ use MyHammer\Library\Supernova;
 
 abstract class Entity implements DirtyInterface
 {
-
-    use Services;
     use FieldMapperTrait;
 
     public static $cache = [];
