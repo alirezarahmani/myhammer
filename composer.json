@@ -15,8 +15,7 @@
   "autoload": {
     "psr-4": {
       "MyHammer\\": "src/",
-      "Loader\\": "Bootstrap/",
-      "": "web/"
+      "Loader\\": "Bootstrap/"
     }
   },
   "require": {

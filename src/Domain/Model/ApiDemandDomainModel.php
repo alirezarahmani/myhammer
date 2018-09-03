@@ -14,6 +14,8 @@ class ApiDemandDomainModel
         RepositoryInterface $repository
     ) {
         $validator->validate($apiRequest);
+        var_dump(8);exit;
+
         $repository->create(
             DemandEntity::newInstance(),
             $apiRequest->request->query->getIterator()->getArrayCopy()

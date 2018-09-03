@@ -19,7 +19,7 @@ use MyHammer\Library\Services;
 
 class EntityFlusher
 {
-    use Services;
+
 
     /** @var Entity[] */
     private $toInsert = [];

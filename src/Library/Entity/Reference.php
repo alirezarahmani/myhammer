@@ -14,7 +14,7 @@ abstract class Reference extends Sub implements DirtyInterface
     private $codeName;
     private $clear = false;
 
-    use Services;
+
 
     public function __construct(
         Entity $parentEntity,

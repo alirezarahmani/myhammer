@@ -20,24 +20,35 @@ class Router
     public static function init()
     {
         try {
-            $request = Container::load()->get(Request::class);
+            $request = MyHammer::getContainer()->get(Request::class);
             $apiRequest = new ApiWebRequest($request);
             $apiResponse = new ApiJsonResponse();
 
-            if ($request->headers->has('device-type') && $request->headers->get('device-type') == 'mobile') {
+            if ($request->headers->has('device-type') &&
+                $request->headers->get('device-type') == 'mobile'
+            ) {
                 $apiRequest = new ApiApplicationRequest($request);
             }
 
             $context = new RequestContext('/');
             $context->fromRequest($request);
             $matcher = new UrlMatcher(self::initRoutes(), $context);
-            $parameters = $matcher->match($request->getRequestUri());
-            if(in_array('id', $parameters)) {
-                return call_user_func([ (new $parameters['_controller']), $parameters['_method']], $parameters['id'], $apiRequest, $apiResponse);
+            $parameters = $matcher->match('/demands');
+            if (in_array('id', $parameters)) {
+                return call_user_func(
+                    [$parameters['_controller'], $parameters['_method']],
+                    $parameters['id'],
+                    $apiRequest,
+                    $apiResponse
+                );
             }
-            return call_user_func([ (new $parameters['_controller']), $parameters['_method']], $apiRequest, $apiResponse);
+            return call_user_func(
+                [$parameters['_controller'], $parameters['_method']],
+                $apiRequest,
+                $apiResponse
+            );
         } catch (ResourceNotFoundException | MethodNotAllowedException $e) {
-            return new JsonResponse('not found',404);
+            return (new JsonResponse('sorry requested page not found', 404))->send();
         }
     }
 
@@ -45,8 +56,22 @@ class Router
     {
         $addRoute = new Route(
             '/demands',
-            ['_controller' => 'MyHammer\\Application\\Controller\\DemandController', '_method' => 'createAction'], [], [],'',[],'GET');
-        $editRoute = new Route('/demands/{id}', ['_controller' => 'MyHammer\\Application\\Controller\\DemandController', '_method' => 'editAction'], [], [],'', [],'GET');
+            ['_controller' => 'MyHammer\\Application\\Controller\\DemandController', '_method' => 'createAction'],
+            [],
+            [],
+            '',
+            [],
+            'GET'
+        );
+        $editRoute = new Route(
+            '/demands/{id}',
+            ['_controller' => 'MyHammer\\Application\\Controller\\DemandController', '_method' => 'editAction'],
+            [],
+            [],
+            '',
+            [],
+            'GET'
+        );
         $routes = new RouteCollection();
         $routes->add('demands_add', $addRoute);
         $routes->add('demands_edit', $editRoute);

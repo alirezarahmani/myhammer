@@ -11,15 +11,8 @@ class ApiDemandValidator implements ApiValidatorInterface
     public function validate(ApiRequestInterface $request)
     {
         $assert = Assert::lazy()->initArray(
-            [
-            'title' => $request->get('title'),
-            'zip_code' => $request->get('zip_code'),
-            'city' => $request->get('city'),
-            'description' => $request->get('description'),
-            'execution_time' => $request->get('execution_time'),
-            'category_id' => $request->get('category_id'),
-        ]);
-
+            $request->getRequest()->query->getIterator()->getArrayCopy()
+        );
         $assert
             ->thatInArray('title')
             ->notEmpty('Title: must not be empty')
@@ -38,7 +31,6 @@ class ApiDemandValidator implements ApiValidatorInterface
             ->satisfy(CustomValidations::isValidCategoryId(), 'Category ID: not a valid category id')
             ->thatInArray('description')
             ->notEmpty('Description: should not be empty');
-
         $assert->verifyNow();
     }
 }

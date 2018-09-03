@@ -4,22 +4,18 @@ namespace MyHammer\Library\Entity;
 use Assert\Assert;
 use Assert\LazyAssertion;
 use Assert\LazyAssertionException;
+use Loader\MyHammer;
 use MyHammer\Library\Entity\Exception\EntityNotFoundException;
 use MyHammer\Library\Entity\Reference\ManyReference;
 use MyHammer\Library\Entity\Schema\BaseReferenceIntColumn;
 use MyHammer\Library\Entity\Schema\JSONColumn;
 use MyHammer\Library\Entity\Schema\ReferenceJsonColumn;
 use MyHammer\Library\Entity\Schema\TableSchema;
-use MyHammer\Library\Service;
-use MyHammer\Library\Listener\RedisQueuesListener;
 use MyHammer\Library\Service\CacheService;
-use MyHammer\Library\Service\ErrorLogService;
 use MyHammer\Library\Service\Mysql\Expression;
 use MyHammer\Library\Service\Mysql\Pager;
 use MyHammer\Library\Service\MysqlService;
 use MyHammer\Library\Service\TimeService;
-use MyHammer\Library\Services;
-use MyHammer\Library\Supernova;
 
 abstract class Entity implements DirtyInterface
 {
@@ -57,7 +53,7 @@ abstract class Entity implements DirtyInterface
         $code = static::getCacheConnectorCode();
         if ($code) {
             /** @var CacheService $service */
-            $service  = Supernova::getContainer()->get($code);
+            $service  = MyHammer::getContainer()->get($code);
             return $service;
         }
         return null;
@@ -629,7 +625,7 @@ abstract class Entity implements DirtyInterface
     final public static function getDbConnector(): MysqlService
     {
         /** @var MysqlService $db */
-        $db = Supernova::getContainer()->get(static::getDbConnectorCode());
+        $db = MyHammer::getContainer()->get(MysqlService::class);
         return $db;
     }
 

@@ -1,13 +1,15 @@
 <?php
 namespace MyHammer\Library\Entity\Schema;
 
-use MyHammer\Library\Exception\InvalidArgumentException;
+use MyHammer\Domain\Model\Entity\EntityModel;
+use MyHammer\Library\Service\CacheService;
+use InvalidArgumentException;
+use Loader\MyHammer;
 use MyHammer\Library\Service\TimeService;
-use MyHammer\Library\Services;
 
 class TableSchema
 {
-    use Services;
+
 
     private $tableName;
     private $columns;
@@ -33,7 +35,7 @@ class TableSchema
     public function getDefaults(string $connectionUri): array
     {
         if ($this->defaults === null) {
-            $defaults = $this->serviceCache()->getLocal()->getWithClosure(
+            $defaults = MyHammer::getContainer()->get(EntityModel::MY_HAMMER_LOCAL)->getWithClosure(
                 'entity:table:defaults:' . $this->getTableName() . $connectionUri,
                 TimeService::YEAR,
                 function () {

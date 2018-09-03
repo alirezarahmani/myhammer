@@ -10,7 +10,7 @@ use MyHammer\Library\Services;
 
 class Row implements \ArrayAccess, \Countable
 {
-    use Services;
+
     use FieldMapperTrait;
 
     private $dbData;

@@ -8,7 +8,7 @@ use MyHammer\Library\Services;
 
 class Schema
 {
-    use Services;
+
 
     private $mysql;
 

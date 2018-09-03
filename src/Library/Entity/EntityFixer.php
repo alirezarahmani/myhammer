@@ -8,7 +8,7 @@ use MyHammer\Library\Services;
 
 class EntityFixer
 {
-    use Services;
+
 
     private $mysql;
     private $schema;

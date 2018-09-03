@@ -1,6 +1,7 @@
 <?php
-namespace MyHammer\Application\Service;
+namespace MyHammer\Library\Service;
 
+use Loader\MyHammer;
 use MyHammer\Library\Service\Mysql\Expression;
 use MyHammer\Library\Service\Mysql\ILogger;
 use MyHammer\Library\Service\Mysql\Pager;
@@ -29,7 +30,7 @@ class MysqlService
 
     public function __construct(string $connectionCode = 'default')
     {
-        $this->settings = $this->serviceSettings()['mysql'][$connectionCode];
+        $this->settings = MyHammer::getContainer()->get(SettingsService::class)['mysql'][$connectionCode];
         $this->connectionCode = $connectionCode;
     }
 

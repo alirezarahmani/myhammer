@@ -16,4 +16,9 @@ class ApiApplicationRequest extends ParameterBag implements ApiRequestInterface
     {
         $this->request = $request;
     }
+
+    public function getRequest()
+    {
+        return $this->request;
+    }
 }

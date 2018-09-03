@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 abstract class EntityEventListener implements EventSubscriberInterface
 {
-    use Services;
+
 
     public function onAdding(EntityAddingEvent $event)
     {
