@@ -1,6 +1,6 @@
 .env
 .idea/
-cache/
+cache/container.php
 composer.lock
 vendor/
 storage/

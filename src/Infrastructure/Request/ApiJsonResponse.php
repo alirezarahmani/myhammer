@@ -9,15 +9,15 @@ class ApiJsonResponse extends JsonResponse implements ApiResponseInterface
     private $message;
     protected $data;
 
-    public function __construct($data = null)
-    {
-        parent::__construct($data);
-    }
-
     public function error(string $message)
     {
         $this->message = $message;
         return $this;
+    }
+
+    public function setData($data = array())
+    {
+        return parent::setData($data);
     }
 
     public function setJson($data)

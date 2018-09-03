@@ -24,23 +24,16 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get install -y --forc
     php7.2-curl \
     php7.2-json \
     php7.2-mysql \
-    php7.2-sybase \
     php7.2-opcache \
     php7.2-apcu \
-    php7.2-mongodb \
     php7.2-xml \
-    php7.2-redis \
     php7.2-intl \
     php7.2-mbstring \
-    php7.2-zip \
-    php7.2-soap \
     php7.2-xdebug \
     php-memcached \
-    nodejs \
     git \
     unzip \
     openssh-server \
-    cron \
     p7zip \
     lzma \
     nano
@@ -91,7 +84,6 @@ RUN echo "xdebug.profiler_enable_trigger=1" >> /etc/php/7.2/fpm/conf.d/20-xdebug
 RUN echo "xdebug.profiler_output_name= cachegrind.out" >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini
 
 RUN mkdir /root/.ssh/
-RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 ADD memcached.ini /etc/php/7.2/fpm/conf.d/25-memcached.ini
 ADD memcached.ini /etc/php/7.2/cli/conf.d/25-memcached.ini
 

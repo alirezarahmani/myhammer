@@ -2,6 +2,9 @@
 
 namespace Loader;
 
+use MyHammer\Infrastructure\Request\ApiApplicationRequest;
+use MyHammer\Infrastructure\Request\ApiJsonResponse;
+use MyHammer\Infrastructure\Request\ApiWebRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
@@ -13,25 +16,42 @@ use Symfony\Component\Routing\RouteCollection;
 
 class Router
 {
+    //@todo: create a router event and remove this
     public static function init()
     {
         try {
-            $route = new Route('/foo', array('_controller' => 'MyController','_method' => 'create'),[],[],'',[],'POST');
-            $routes = new RouteCollection();
-            $routes->add('ok', $route);
             $request = Container::load()->get(Request::class);
+            $apiRequest = new ApiWebRequest($request);
+            $apiResponse = new ApiJsonResponse();
+
+            if ($request->headers->has('device-type') && $request->headers->get('device-type') == 'mobile') {
+                $apiRequest = new ApiApplicationRequest($request);
+            }
 
             $context = new RequestContext('/');
             $context->fromRequest($request);
-
-            $matcher = new UrlMatcher($routes, $context);
-
+            $matcher = new UrlMatcher(self::initRoutes(), $context);
             $parameters = $matcher->match($request->getRequestUri());
-            var_dump($parameters);exit;
-            return $parameters['_controller'];
+
+            if(in_array('id', $parameters)) {
+                 return (new $parameters['_controller'])->{$parameters['_method']}($parameters['id'],$apiRequest, $apiResponse);
+            }
+
+            return (new $parameters['_controller'])->{$parameters['_method']}($apiRequest, $apiResponse);
         } catch (ResourceNotFoundException | MethodNotAllowedException $e) {
-            echo 'not';
-            return new JsonResponse('not found' , 404);
+            return new JsonResponse('not found',404);
         }
+    }
+
+    private static function initRoutes()
+    {
+        $addRoute = new Route(
+            '/demands',
+            ['_controller' => 'MyHammer\\Application\\Controller\\DemandController', '_method' => 'createAction'], [], [],'',[],'GET');
+        $editRoute = new Route('/demands/{id}', ['_controller' => 'MyHammer\\Application\\Controller\\DemandController', '_method' => 'editAction'], [], [],'', [],'GET');
+        $routes = new RouteCollection();
+        $routes->add('demands_add', $addRoute);
+        $routes->add('demands_edit', $editRoute);
+        return $routes;
     }
 }
