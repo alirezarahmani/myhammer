@@ -17,9 +17,10 @@ use Symfony\Component\Routing\RouteCollection;
 class Router
 {
     //@todo: create a routerEvent and remove this
-    public static function init()
+    public static function initialize()
     {
         try {
+            /** @var Request $request */
             $request = MyHammer::getContainer()->get(Request::class);
             $apiRequest = new ApiWebRequest($request);
             $apiResponse = new ApiJsonResponse();

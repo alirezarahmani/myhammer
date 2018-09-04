@@ -5,6 +5,7 @@ use Assert\Assert;
 use Assert\LazyAssertion;
 use Assert\LazyAssertionException;
 use Loader\MyHammer;
+use MyHammer\Domain\Model\Entity\EntityModel;
 use MyHammer\Library\Entity\Exception\EntityNotFoundException;
 use MyHammer\Library\Entity\Reference\ManyReference;
 use MyHammer\Library\Entity\Schema\BaseReferenceIntColumn;
@@ -390,10 +391,8 @@ abstract class Entity implements DirtyInterface
         return $this->localData[$key] ?? null;
     }
 
-    public function getTranslatedField(string $key, string $lang = null): ?string
+    public function getTranslatedField(string $key, string $lang = 'en'): ?string
     {
-        $lang = $lang ?? $this->serviceLocale()->getCurrentLanguage();
-
         if ($value = $this->getField($key . '_' . $lang)) {
             return $value;
         }
@@ -561,7 +560,7 @@ abstract class Entity implements DirtyInterface
      */
     public function getReferences(): array
     {
-        $codes = $this->serviceCache()->getLocal()->getWithClosure(
+        $codes = MyHammer::getContainer()->get(EntityModel::MY_HAMMER_LOCAL)->getWithClosure(
             'entity:references:' . get_called_class(),
             TimeService::YEAR,
             function () {
@@ -617,10 +616,10 @@ abstract class Entity implements DirtyInterface
         return $object;
     }
 
-    public function getLazyQueueCode(): string
-    {
-        return RedisQueuesListener::QUEUE_ENTITY_LAZY_FLUSH;
-    }
+//    public function getLazyQueueCode(): string
+//    {
+//        return RedisQueuesListener::QUEUE_ENTITY_LAZY_FLUSH;
+//    }
 
     final public static function getDbConnector(): MysqlService
     {
@@ -698,7 +697,7 @@ abstract class Entity implements DirtyInterface
         return false;
     }
 
-    protected function getEntityService(string $key, string $class): Service
+    protected function getEntityService(string $key, string $class)
     {
         if (isset($this->services[$key])) {
             return $this->services[$key];
@@ -1017,9 +1016,6 @@ abstract class Entity implements DirtyInterface
             foreach ($checkedKeys as $checkedKey) {
                 $cache->delete($checkedKey);
             }
-            /** @var ErrorLogService $errorLog */
-            $errorLog = Supernova::getContainer()->get(ErrorLogService::class);
-            $errorLog->logException($e, true);
             return self::getIdsFromIndex($indexCode, $many, $values, $initialize, $pager, $orderFields);
         }
     }

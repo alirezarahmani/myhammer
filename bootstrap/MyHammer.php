@@ -27,7 +27,7 @@ class MyHammer
         self::$containerBuilder = $containerBuilder;
     }
 
-    public static function initialize()
+    public static function create()
     {
         $compiledClassName = 'MyCachedContainer';
         $cacheDir = getenv('VENDOR_DIR') . '/../cache/';

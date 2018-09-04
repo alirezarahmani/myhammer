@@ -32,11 +32,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get install -y --forc
     php7.2-xdebug \
     php-memcached \
     git \
-    unzip \
-    openssh-server \
-    p7zip \
-    lzma \
-    nano
+    openssh-server
 
 # configure php-fpm
 RUN sed -i 's/^;*clear_env = .*/clear_env = no/' /etc/php/7.2/fpm/pool.d/www.conf

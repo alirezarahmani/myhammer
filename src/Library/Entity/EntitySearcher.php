@@ -1,6 +1,7 @@
 <?php
 namespace MyHammer\Library\Entity;
 
+use Loader\MyHammer;
 use MyHammer\Library\Service;
 use MyHammer\Library\Supernova;
 use Symfony\Component\Finder\Finder;
@@ -22,7 +23,7 @@ class EntitySearcher extends Service
                 $settings = $this->serviceSettings();
                 $extensions = $extensions ?? $settings['extensions'];
                 foreach ($extensions as $extension) {
-                    $dir = $settings['vendor_dir'] . '/digikala/' . $extension . '/src/Entity';
+                    $dir = $settings['vendor_dir'] . '/../src/Domain/Model/Entity';
                     if (!is_dir($dir)) {
                         continue;
                     }
@@ -34,8 +35,8 @@ class EntitySearcher extends Service
                         $className = implode(
                             '\\',
                             [
-                                'Digikala',
-                                Supernova::convertPathToNamespace(substr($extension . '/Entity/' . $file->getRelativePathname(), 0, -4))
+                                'MyHammer',
+                                MyHammer::convertPathToNamespace(substr($extension . '/Entity/' . $file->getRelativePathname(), 0, -4))
                             ]
                         );
                         /**

@@ -1,7 +1,6 @@
 <?php
 namespace MyHammer\Library\Service;
 
-use Loader\MyHammer;
 use MyHammer\Library\Cache\CacheStorage;
 
 class CacheService
@@ -21,7 +20,7 @@ class CacheService
             $this->namespaceCounter = (int) $storage->get('key_counter');
         }
         $this->mode = '';
-        $this->keyPrefix = MyHammer::getContainer()->get(SettingsService::class)['code'];
+        $this->keyPrefix = '';
     }
 
     public function set(string $key, $value, int $ttl)

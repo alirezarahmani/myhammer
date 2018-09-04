@@ -17,7 +17,7 @@ class ApiWebRequest extends ParameterBag implements ApiRequestInterface
         $this->request = $request;
     }
 
-    public function getRequest()
+    public function getRequest():Request
     {
         return $this->request;
     }

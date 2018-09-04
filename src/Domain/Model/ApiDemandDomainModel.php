@@ -14,11 +14,9 @@ class ApiDemandDomainModel
         RepositoryInterface $repository
     ) {
         $validator->validate($apiRequest);
-        var_dump(8);exit;
-
         $repository->create(
             DemandEntity::newInstance(),
-            $apiRequest->request->query->getIterator()->getArrayCopy()
+            $apiRequest->getRequest()->query->getIterator()->getArrayCopy()
         );
     }
 
@@ -31,7 +29,7 @@ class ApiDemandDomainModel
         $validator->validate($apiRequest);
         $repository->create(
             DemandEntity::getById($id),
-            $apiRequest->request->query->getIterator()->getArrayCopy()
+            $apiRequest->getRequest()->query->getIterator()->getArrayCopy()
         );
     }
 }
