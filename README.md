@@ -16,8 +16,9 @@ when you run `./build.sh` the system will make everything (such as migrations, c
 
 My Assumptions:
 ---
-I assume each customer can demand a job (or a action), that some experts can see and accept to do it. I assume the filed of when to do in demand request form are fixed(such as should be done immediately or by next days) values and are not dates. If I was wrong just let me change it. 
-I assume `city` and `zip code` are fixed values(the table in pdf file) and they will not change or change very rarely, then I create a value object for them.
+- I assume the form in pdf file is for customers that can demand a job (or a action) to be done by some experts and some experts can see the demands related to their profession  and accept to do it.
+- I assume values in the filed `when job should be done` in pdf file are fixed(such as should be done immediately or by next days)values and should not be a date. 
+- I assume `city` and `zip code` are fixed values(the table in pdf file) and they will not change or change very rarely, then I create a value object for them.
 
 About Architecture:
 ---
@@ -33,7 +34,7 @@ We wrote this ORM when I was in poland, We use it in many enterprise we applicat
 
 What Are To Dos:
 --
-I put some `@todo` in code, because I do not have enough time to finish them. I you do care just give me more days to finish them.
+I put some `@todo` in code, because I do not have enough time to finish them. If you do care just give me more days to finish them.
  
 Important Notes:
 ---
