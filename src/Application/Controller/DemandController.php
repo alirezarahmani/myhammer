@@ -2,7 +2,7 @@
 
 namespace MyHammer\Application\Controller;
 
-use MyHammer\Domain\Model\ApiDemandDomainModel;
+use MyHammer\Domain\Model\ApiRegisterDemandDomainModel;
 use MyHammer\Infrastructure\Repositories\DemandRepository;
 use MyHammer\Infrastructure\Request\ApiRequestInterface;
 use MyHammer\Infrastructure\Request\ApiResponseInterface;
@@ -15,7 +15,7 @@ class DemandController
     public function createAction(ApiRequestInterface $request, ApiResponseInterface $response)
     {
         try {
-            (new ApiDemandDomainModel())->add($request, new ApiDemandValidator(), new DemandRepository());
+            (new ApiRegisterDemandDomainModel())->register($request, new ApiDemandValidator(), new DemandRepository());
             return $response->success();
         } catch (ValidateException $e) {
             return $response->error($e->getErrors());
@@ -25,7 +25,7 @@ class DemandController
     public function editAction(int $id, ApiRequestInterface $request, ApiResponseInterface $response)
     {
         try {
-            (new ApiDemandDomainModel())->edit($id, $request, new ApiDemandValidator(), new DemandRepository());
+            (new ApiRegisterDemandDomainModel())->edit($id, $request, new ApiDemandValidator(), new DemandRepository());
             return $response->success();
         } catch (ValidateException $e) {
             return $response->error($e->getErrors());

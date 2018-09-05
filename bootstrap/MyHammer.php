@@ -2,7 +2,9 @@
 
 namespace Loader;
 
+use Application\Listener\ApiRegisterDemandListener;
 use MyHammer\Domain\Model\Entity\EntityModel;
+use MyHammer\Events\Domain\ApiRegisterDemandEvent;
 use MyHammer\Library\Assert\Assertion;
 use MyHammer\Library\Cache\Storages\APCUCacheStorage;
 use MyHammer\Library\Cache\Storages\MemcachedCacheStorage;
@@ -15,6 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
 
@@ -41,6 +44,7 @@ class MyHammer
 
             $container->register(SettingsService::class, SettingsService::class)->addArgument($config)->setPublic(true);
             $container->register(MemcachedService::class, MemcachedService::class)->setPublic(true);
+            $container->register(EventDispatcher::class)->setPublic(true);
             $container->register(MemcachedCacheStorage::class, MemcachedCacheStorage::class)
                 ->setPublic(true)
                 ->addArgument(new Reference(MemcachedService::class));
@@ -66,10 +70,21 @@ class MyHammer
         $request = Request::createFromGlobals();
         $container->set(Request::class, $request);
         new static($container);
+        self::eventSubscribers();
     }
 
     public static function getContainer(): Container
     {
         return self::$containerBuilder;
+    }
+
+    private static function eventSubscribers()
+    {
+        /** @var EventDispatcher $dispatcher */
+        $dispatcher = MyHammer::getContainer()->get(EventDispatcher::class);
+        $dispatcher->addListener(
+            ApiRegisterDemandEvent::EVENT_NAME,
+            [ApiRegisterDemandListener::class, 'onDemandApiFetch']
+        );
     }
 }

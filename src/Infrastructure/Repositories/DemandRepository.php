@@ -8,7 +8,7 @@ use MyHammer\Domain\RepositoryInterface;
 class DemandRepository implements RepositoryInterface
 {
 
-    public function create(DemandEntity $demandEntity, array $inputs)
+    public function update(DemandEntity $demandEntity, array $inputs)
     {
         $demandEntity->setTitle($inputs['title']);
         $demandEntity->setCategoryId($inputs['category_id']);
