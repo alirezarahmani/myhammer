@@ -58,20 +58,20 @@ class ApiApplicationRequestTest extends TestCase
     }
 
     /** @test */
-    public function shouldThrowExceptionWithWrongVersionInHeader()
+    public function shouldGetRightVersionFromHeader()
     {
-        $this->expectException(ValidateException::class);
         $this->request->headers->set('device-type', \MyHammer\Infrastructure\Request\ApiApplicationRequest::ANDROID);
-        $this->request->headers->set('version', '1.4.0');
-        new \MyHammer\Infrastructure\Request\ApiApplicationRequest($this->request);
+        $this->request->headers->set('version', '1.4.5');
+        $requestApi = new \MyHammer\Infrastructure\Request\ApiApplicationRequest($this->request);
+        $this->assertEquals($requestApi->getVersion(), '1.4.5');
     }
 
     /** @test */
-    public function shouldNotThrowExceptionWithWrongVersionInHeader()
+    public function shouldGetRightDeviceTypeFromHeader()
     {
-        $this->expectException(ValidateException::class);
         $this->request->headers->set('device-type', \MyHammer\Infrastructure\Request\ApiApplicationRequest::ANDROID);
-        $this->request->headers->set('version', '1.4.0');
-        new \MyHammer\Infrastructure\Request\ApiApplicationRequest($this->request);
+        $this->request->headers->set('version', '1.4.5');
+        $requestApi = new \MyHammer\Infrastructure\Request\ApiApplicationRequest($this->request);
+        $this->assertEquals($requestApi->getDeviceType(), \MyHammer\Infrastructure\Request\ApiApplicationRequest::ANDROID);
     }
 }
