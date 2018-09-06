@@ -4,9 +4,9 @@ namespace MyHammer\Infrastructure\Validator;
 use MyHammer\Domain\Model\Entity\CategoryEntity;
 use MyHammer\Library\Entity\Exception\EntityNotFoundException;
 
-class CustomValidations
+class CustomValidations implements CustomValidationsInterface
 {
-    public static function isValidCategoryId()
+    public function isValidCategoryId()
     {
         return function ($categoryId) {
             try {

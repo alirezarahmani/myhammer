@@ -6,5 +6,5 @@ use MyHammer\Infrastructure\Request\ApiRequestInterface;
 
 interface ApiValidatorInterface
 {
-    public function validate(ApiRequestInterface $request);
+    public function validate(ApiRequestInterface $request, CustomValidationsInterface $customValidation = null);
 }

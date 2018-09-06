@@ -3,19 +3,39 @@
 use MyHammer\Library\Assert\ValidateException;
 use PHPUnit\Framework\TestCase;
 
-class ApiApplicationRequestTest extends TestCase
+class ApiJsonResponseTest extends TestCase
 {
-    private $request;
+    private $jsonResponse;
 
     public function setUp()
     {
         parent::setUp();
-        $this->jsonRsponse = new \MyHammer\Infrastructure\Request\ApiJsonResponse();
+        $this->jsonResponse = new \MyHammer\Infrastructure\Request\ApiJsonResponse();
     }
 
     /** @test */
-    public function shouldThrowExceptionWithNoDeviceTypeInHeader()
+    public function successResponseWithPayloadShouldBeEqual()
     {
-        $this->assertEquals(new \Symfony\Component\HttpFoundation\JsonResponse(), ->success());
+        $this->assertEquals(
+            new \Symfony\Component\HttpFoundation\JsonResponse([
+                'Data' => ['hi'],
+                'Status' => true,
+                'Message' => ''
+            ]),
+            $this->jsonResponse->success(['hi'])
+        );
+    }
+
+    /** @test */
+    public function errorResponseWithPayloadShouldBeEqual()
+    {
+        $this->assertEquals(
+            new \Symfony\Component\HttpFoundation\JsonResponse([
+                'Data' => [],
+                'Status' => false,
+                'Message' => []
+            ]),
+            $this->jsonResponse->error([])
+        );
     }
 }

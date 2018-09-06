@@ -10,7 +10,7 @@ class ApiJsonResponse implements ApiResponseInterface
     {
         return (new JsonResponse(
             [
-            'Data' => '',
+            'Data' => [],
             'Status' => false,
             'Message' => $errors
             ]
