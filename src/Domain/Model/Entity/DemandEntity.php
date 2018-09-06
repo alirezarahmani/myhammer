@@ -123,7 +123,7 @@ class DemandEntity extends EntityModel
         return $this;
     }
 
-    public function getCreatedAt() : \DateTime
+    public function getCreatedAt() : ?\DateTime
     {
         return $this->mapToDateTime('created_at');
     }
@@ -133,7 +133,7 @@ class DemandEntity extends EntityModel
         return $this->mapFromDateTime('created_at', $createdAt);
     }
 
-    public function getUpdatedAt() : \DateTime
+    public function getUpdatedAt() : ?\DateTime
     {
         return $this->mapToDateTime('updated_at');
     }

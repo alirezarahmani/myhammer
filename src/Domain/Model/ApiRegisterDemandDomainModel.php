@@ -17,11 +17,10 @@ class ApiRegisterDemandDomainModel
         ApiValidatorInterface $validator,
         RepositoryInterface $repository
     ) {
-        $validator->validate($apiRequest);
+        $validator->validate($apiRequest, new CustomValidations());
         $repository->update(
             DemandEntity::newInstance(),
-            $apiRequest->getRequest()->query->getIterator()->getArrayCopy(),
-            new CustomValidations()
+            $apiRequest->getRequest()->query->getIterator()->getArrayCopy()
         );
         //@todo: complete event, add data to ApiRegisterDemandEvent
         MyHammer::getContainer()->get(EventDispatcher::class)->dispatch(

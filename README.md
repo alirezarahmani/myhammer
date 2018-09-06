@@ -6,7 +6,12 @@ MyHammer Test!
 I create a docker file and set-up environment for you to run this project easily.
 The only thing you should do is just run `./build.sh` in root of project.
 It may take a short time to download docker images.
-After the progress finished. just try `localhost:81` and There you are. 
+After the progress finished. run database commands :
+  - `docker-compose exec worker php vendor/bin/phinx migrate`
+  - `docker-compose exec worker php vendor/bin/phinx seed:run`
+ 
+Now just try `localhost:81` and There you are. 
+
 My Assumptions:
 ---
 - I assume the form in pdf file is for customers that can demand a job (or a action) to be done by some experts and some experts can see the demands related to their profession and accept to do it.
@@ -26,7 +31,7 @@ We wrote this ORM when I was in poland, We use it in many enterprise we applicat
 
 What Are To Dos:
 --
-I put some `@todo` in code, because I do not have enough time to finish them. If you do care just give me more days to finish them(2 or 3 days).
+I put some `@todo` in code and not finished the whole tests, because I do not have enough time to finish them. If you do care just give me more days to finish them(2 or 3 days).
 
 Documents for Mobile Applications Developers:
 --

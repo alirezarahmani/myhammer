@@ -15,3 +15,4 @@ docker-compose up -d
 docker-compose exec worker composer install
 docker-compose down
 docker-compose up -d
+

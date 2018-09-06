@@ -2,12 +2,8 @@
 namespace MyHammer\Library\Entity;
 
 use Loader\MyHammer;
-use MyHammer\Library\Service;
-use MyHammer\Library\Supernova;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
-class EntitySearcher extends Service
+class EntitySearcher
 {
 
     /**
