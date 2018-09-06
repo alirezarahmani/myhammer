@@ -18,7 +18,7 @@ class ApiJobSearchView
         foreach ($data as $datum) {
             $result[] = [
                'title' => $datum->getTitle(),
-               'category' => $datum->getCategory()->getId(),
+               'category' => $datum->getCategory()->getTitle(),
                'execute time' => $datum->getExecutionTime(),
                'address' => (string)$datum->getAddress()
             ];

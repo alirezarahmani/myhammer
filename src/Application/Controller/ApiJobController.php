@@ -7,7 +7,6 @@ use MyHammer\Infrastructure\Request\ApiRequestInterface;
 use MyHammer\Infrastructure\Request\ApiResponseInterface;
 use MyHammer\Library\Assert\ValidateException;
 use MyHammer\View\ApiJobSearchView;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
 class ApiJobController
 {

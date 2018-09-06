@@ -5,6 +5,7 @@ use MyHammer\Domain\Model\Entity\DemandEntity;
 use MyHammer\Domain\RepositoryInterface;
 use MyHammer\Infrastructure\Request\ApiRequestInterface;
 use MyHammer\Infrastructure\Validator\ApiValidatorInterface;
+use MyHammer\Infrastructure\Validator\CustomValidations;
 
 class ApiModifyDemandDomainModel
 {
@@ -14,7 +15,7 @@ class ApiModifyDemandDomainModel
         ApiValidatorInterface $validator,
         RepositoryInterface $repository
     ) {
-        $validator->validate($apiRequest);
+        $validator->validate($apiRequest, new CustomValidations());
         $repository->update(
             DemandEntity::getById($id),
             $apiRequest->getRequest()->query->getIterator()->getArrayCopy()

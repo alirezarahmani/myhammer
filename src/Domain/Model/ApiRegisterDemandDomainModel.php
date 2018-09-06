@@ -7,6 +7,7 @@ use MyHammer\Domain\Model\Entity\DemandEntity;
 use MyHammer\Domain\RepositoryInterface;
 use MyHammer\Infrastructure\Request\ApiRequestInterface;
 use MyHammer\Infrastructure\Validator\ApiValidatorInterface;
+use MyHammer\Infrastructure\Validator\CustomValidations;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class ApiRegisterDemandDomainModel
@@ -19,7 +20,8 @@ class ApiRegisterDemandDomainModel
         $validator->validate($apiRequest);
         $repository->update(
             DemandEntity::newInstance(),
-            $apiRequest->getRequest()->query->getIterator()->getArrayCopy()
+            $apiRequest->getRequest()->query->getIterator()->getArrayCopy(),
+            new CustomValidations()
         );
         //@todo: complete event, add data to ApiRegisterDemandEvent
         MyHammer::getContainer()->get(EventDispatcher::class)->dispatch(
