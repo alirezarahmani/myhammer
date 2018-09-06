@@ -39,5 +39,5 @@ In documents folder I've created a document for them.
  
 Important Notes:
 ---
-The `router` is completely done, It only support simple routes.
+The `router` is not completely done, It only support simple routes.
  If you do care just give me a time to create Route Listener and providers. 
