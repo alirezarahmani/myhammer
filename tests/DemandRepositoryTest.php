@@ -19,7 +19,7 @@ class DemandRepositoryTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        putenv('VENDOR_DIR=../vendor/');
+        putenv('VENDOR_DIR=vendor');
         \Loader\MyHammer::create();
     }
 

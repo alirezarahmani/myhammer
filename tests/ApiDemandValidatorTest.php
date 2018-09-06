@@ -22,7 +22,7 @@ class ApiDemandValidatorTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        putenv('VENDOR_DIR=../vendor/');
+        putenv('VENDOR_DIR=vendor');
         \Loader\MyHammer::create();
         $this->validator = new \MyHammer\Infrastructure\Validator\ApiDemandValidator();
         $this->request = Mockery::mock(Request::class);
