@@ -4,7 +4,7 @@ namespace Loader;
 
 use Application\Listener\ApiRegisterDemandListener;
 use MyHammer\Domain\Model\Entity\EntityModel;
-use MyHammer\Events\Domain\ApiRegisterDemandEvent;
+use MyHammer\Domain\Events\ApiRegisterDemandEvent;
 use MyHammer\Library\Assert\Assertion;
 use MyHammer\Library\Cache\Storages\APCUCacheStorage;
 use MyHammer\Library\Cache\Storages\MemcachedCacheStorage;
@@ -70,7 +70,7 @@ class MyHammer
         $request = Request::createFromGlobals();
         $container->set(Request::class, $request);
         new static($container);
-        self::eventSubscribers();
+        self::addEventSubscribers();
     }
 
     public static function getContainer(): Container
@@ -78,7 +78,7 @@ class MyHammer
         return self::$containerBuilder;
     }
 
-    private static function eventSubscribers()
+    private static function addEventSubscribers()
     {
         /** @var EventDispatcher $dispatcher */
         $dispatcher = MyHammer::getContainer()->get(EventDispatcher::class);

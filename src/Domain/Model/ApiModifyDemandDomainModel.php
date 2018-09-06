@@ -1,31 +1,23 @@
 <?php
 namespace MyHammer\Domain\Model;
 
-use Loader\MyHammer;
-use MyHammer\Domain\Events\ApiRegisterDemandEvent;
 use MyHammer\Domain\Model\Entity\DemandEntity;
 use MyHammer\Domain\RepositoryInterface;
 use MyHammer\Infrastructure\Request\ApiRequestInterface;
 use MyHammer\Infrastructure\Validator\ApiValidatorInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
-class ApiRegisterDemandDomainModel
+class ApiModifyDemandDomainModel
 {
-    public function register(
+    public function edit(
+        int $id,
         ApiRequestInterface $apiRequest,
         ApiValidatorInterface $validator,
         RepositoryInterface $repository
     ) {
         $validator->validate($apiRequest);
         $repository->update(
-            DemandEntity::newInstance(),
+            DemandEntity::getById($id),
             $apiRequest->getRequest()->query->getIterator()->getArrayCopy()
         );
-        //@todo: complete event, add data to ApiRegisterDemandEvent
-        MyHammer::getContainer()->get(EventDispatcher::class)->dispatch(
-            ApiRegisterDemandEvent::EVENT_NAME,
-            new ApiRegisterDemandEvent([])
-        );
-        //@todo: complete this
     }
 }

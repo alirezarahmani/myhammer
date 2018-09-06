@@ -13,6 +13,7 @@ class ApiDemandValidator implements ApiValidatorInterface
         $assert = Assert::lazy()->initArray(
             $request->getRequest()->query->getIterator()->getArrayCopy()
         );
+
         $assert
             ->thatInArray('title')
             ->notEmpty('Title: must not be empty')
@@ -24,8 +25,8 @@ class ApiDemandValidator implements ApiValidatorInterface
             ->thatInArray('city')
             ->notEmpty('City: should not be empty')
             ->inArray(Address::getCities(), 'City: german city only')
-            ->thatInArray('execution_time')
-            ->inArray(DemandEntity::EXECUTION_TIMES, 'Execution Time: sorry please make sure you select correct execution time from list')
+            ->thatInArray('execute_time')
+            ->inArray(DemandEntity::EXECUTE_TIMES, 'Execution Time: sorry please make sure you select correct execution time from list')
             ->thatInArray('category_id')
             ->notEmpty('category Id: should not be empty')
             ->satisfy(CustomValidations::isValidCategoryId(), 'Category ID: not a valid category id')

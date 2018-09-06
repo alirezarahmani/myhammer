@@ -16,9 +16,9 @@ class DemandEntity extends EntityModel
 
     const INDEX_CATEGORY = 'category';
 
-    const EXECUTION_TIMES = [self::IMMEDIATELY, self::UP_3DAYS, self::UP_WEEK];
+    const EXECUTE_TIMES = [self::IMMEDIATELY, self::UP_THREE_DAYS, self::UP_WEEK];
     const IMMEDIATELY = 'immediately';
-    const UP_3DAYS = '3days';
+    const UP_THREE_DAYS = 'three_days';
     const UP_WEEK = 'week';
 
     protected static function getTableSchemaDefinition(): TableSchema
@@ -31,7 +31,7 @@ class DemandEntity extends EntityModel
             ReferenceJsonColumn::create('user_id', UserEntity::class),
             IntColumn::create('zipcode', IntColumn::MAX_SIZE_65_THOUSAND)->allowNull(false),
             VarcharColumn::create('city', 10)->allowNull(false),
-            EnumColumn::create('execution_time', self::EXECUTION_TIMES)->allowNull(false),
+            EnumColumn::create('execute_time', self::EXECUTE_TIMES)->allowNull(false),
             TextColumn::create('description')->allowNull(false),
             DateTimeColumn::create('created_at')->allowNull(false),
             DateTimeColumn::create('updated_at')->allowNull(true)
@@ -88,12 +88,12 @@ class DemandEntity extends EntityModel
 
     public function getExecutionTime(): string
     {
-        return $this->getField('execution_time');
+        return $this->getField('execute_time');
     }
 
-    public function setExecutionTime(string $executionTime): self
+    public function setExecuteTime(string $executeTime): self
     {
-        $this->setField('execution_time', $executionTime);
+        $this->setField('execute_time', $executeTime);
 
         return $this;
     }

@@ -5,7 +5,6 @@ MAINTAINER Alireza Rahmani Khalili "alirezarahmani@live.com"
 ENV TERM xterm
 
 RUN apt-get update --fix-missing && apt-get install -y --force-yes curl sudo vim
-
 RUN apt-get install -y --force-yes wget apt-transport-https lsb-release ca-certificates
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 
@@ -36,7 +35,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get install -y --forc
 
 # configure php-fpm
 RUN sed -i 's/^;*clear_env = .*/clear_env = no/' /etc/php/7.2/fpm/pool.d/www.conf
-
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
@@ -78,7 +76,6 @@ RUN echo "xdebug.default_enable=0" >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini
 RUN echo "xdebug.profiler_output_dir=/var/www/cachegrind/" >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini
 RUN echo "xdebug.profiler_enable_trigger=1" >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini
 RUN echo "xdebug.profiler_output_name= cachegrind.out" >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini
-
 RUN mkdir /root/.ssh/
 ADD memcached.ini /etc/php/7.2/fpm/conf.d/25-memcached.ini
 ADD memcached.ini /etc/php/7.2/cli/conf.d/25-memcached.ini

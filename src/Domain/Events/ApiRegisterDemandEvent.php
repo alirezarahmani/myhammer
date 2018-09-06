@@ -1,6 +1,6 @@
 <?php
 
-namespace MyHammer\Events\Domain;
+namespace MyHammer\Domain\Events;
 
 use Symfony\Component\EventDispatcher\Event;
 

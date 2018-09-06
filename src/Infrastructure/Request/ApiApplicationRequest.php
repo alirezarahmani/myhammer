@@ -15,6 +15,7 @@ class ApiApplicationRequest extends ParameterBag implements ApiRequestInterface
     const ANDROID = 'android';
     const IOS = 'ios';
     const SUPPORTED_PLATFORM = [self::ANDROID, self::IOS];
+    //@todo: remove hardcoded version
     const SUPPORTED_VERSION = '1.4.5';
 
     public function __construct(Request $request)
@@ -24,15 +25,15 @@ class ApiApplicationRequest extends ParameterBag implements ApiRequestInterface
         Assertion::inArray(
             $device = $this->request->headers->get('device-type'),
             self::SUPPORTED_PLATFORM,
-            'sorry, the' . $device . ' is not supported!'
+            'sorry, the ' . $device . ' is not supported!'
         );
         Assertion::true(
-            $version = $this->request->headers->get('version'),
+            $this->request->headers->has('version'),
             'no valid version'
         );
         Assertion::eq(
             self::SUPPORTED_VERSION,
-            $this->request->headers->get('version'),
+            $version = $this->request->headers->get('version'),
             'the version ' . $version . ' is not a valid version'
         );
     }

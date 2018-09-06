@@ -35,6 +35,10 @@ We wrote this ORM when I was in poland, We use it in many enterprise we applicat
 What Are To Dos:
 --
 I put some `@todo` in code, because I do not have enough time to finish them. If you do care just give me more days to finish them.
+
+Documents for Mobile Applications Developers:
+--
+In documents folder I've created a comprehensive documents for them.
  
 Important Notes:
 ---

@@ -15,7 +15,7 @@ class CategoryEntity extends EntityModel
     protected static function getTableSchemaDefinition(): TableSchema
     {
         return new TableSchema(
-            'category',
+            'categories',
             IntColumn::create('id')->primary()->autoincrement(),
             VarcharColumn::create('title')->allowNull(false)->inUniqueIndex(self::INDEX_CATEGORY),
             DateTimeColumn::create('created_at')->allowNull(false),

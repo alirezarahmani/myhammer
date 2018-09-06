@@ -16,8 +16,9 @@ use Symfony\Component\Routing\RouteCollection;
 
 class Router
 {
-    //@todo: create a routerEvent and remove this
-    public static function initialize()
+    //@todo: create a routerSubscriber and remove this
+    //@todo: create a dependency resolver for controller arguments
+    public static function routes()
     {
         try {
             /** @var Request $request */
@@ -34,22 +35,23 @@ class Router
             $context = new RequestContext('/');
             $context->fromRequest($request);
             $matcher = new UrlMatcher(self::initRoutes(), $context);
-            $parameters = $matcher->match('/demands');
-            if (in_array('id', $parameters)) {
+            if ($parameters = $matcher->match($request->getPathInfo())) {
+                if (isset($parameters['id'])) {
+                    return call_user_func(
+                        [$parameters['_controller'], $parameters['_method']],
+                        $parameters['id'],
+                        $apiRequest,
+                        $apiResponse
+                    );
+                }
                 return call_user_func(
                     [$parameters['_controller'], $parameters['_method']],
-                    $parameters['id'],
                     $apiRequest,
                     $apiResponse
                 );
             }
-            return call_user_func(
-                [$parameters['_controller'], $parameters['_method']],
-                $apiRequest,
-                $apiResponse
-            );
         } catch (ResourceNotFoundException | MethodNotAllowedException $e) {
-            return (new JsonResponse('sorry requested page not found', 404))->send();
+            return (new JsonResponse(['sorry requested page not found'], 404))->send();
         }
     }
 
@@ -57,7 +59,7 @@ class Router
     {
         $addRoute = new Route(
             '/demands',
-            ['_controller' => 'MyHammer\\Application\\Controller\\DemandController', '_method' => 'createAction'],
+            ['_controller' => 'MyHammer\\Application\\Controller\\ApiDemandController', '_method' => 'createAction'],
             [],
             [],
             '',
@@ -66,7 +68,16 @@ class Router
         );
         $editRoute = new Route(
             '/demands/{id}',
-            ['_controller' => 'MyHammer\\Application\\Controller\\DemandController', '_method' => 'editAction'],
+            ['_controller' => 'MyHammer\\Application\\Controller\\ApiDemandController', '_method' => 'editAction'],
+            [],
+            [],
+            '',
+            [],
+            'GET'
+        );
+        $indexRoute = new Route(
+            '/jobs',
+            ['_controller' => 'MyHammer\\Application\\Controller\\ApiJobController', '_method' => 'indexAction'],
             [],
             [],
             '',
@@ -76,6 +87,7 @@ class Router
         $routes = new RouteCollection();
         $routes->add('demands_add', $addRoute);
         $routes->add('demands_edit', $editRoute);
+        $routes->add('job_index', $indexRoute);
         return $routes;
     }
 }

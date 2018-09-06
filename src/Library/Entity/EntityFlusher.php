@@ -1,6 +1,7 @@
 <?php
 namespace MyHammer\Library\Entity;
 
+use Loader\MyHammer;
 use MyHammer\Library\Event\Entity\EntityAddedEvent;
 use MyHammer\Library\Event\Entity\EntityAddingEvent;
 use MyHammer\Library\Event\Entity\EntityDeletedEvent;
@@ -12,10 +13,9 @@ use MyHammer\Library\Entity\Reference\BigReference;
 use MyHammer\Library\Entity\Reference\ManyReference;
 use MyHammer\Library\Entity\Reference\Row;
 use MyHammer\Library\Entity\Reference\SmallReference;
-use MyHammer\Library\Listener\RedisQueuesListener;
 use MyHammer\Library\Service\CacheService;
 use MyHammer\Library\Service\Mysql\Expression;
-use MyHammer\Library\Services;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class EntityFlusher
 {
@@ -100,7 +100,7 @@ class EntityFlusher
                 foreach ($entities as $entity) {
                     $bind = $entity->getUpdateBind();
                     $event = new EntityAddingEvent($entity, $bind);
-                    $this->serviceEventDispatcher()->dispatch($class . ':' . Events::ENTITY_ADDING, $event);
+                    MyHammer::getContainer()->get(EventDispatcher::class)->dispatch($class . ':' . Events::ENTITY_ADDING, $event);
                     $bind = $event->getBind();
                     $binds[] = $bind;
                 }
@@ -119,7 +119,7 @@ class EntityFlusher
                     foreach ($entity->getReferences() as $reference) {
                         $this->handleReference($reference, $cacheId, $cacheToDelete);
                     }
-                    $this->serviceEventDispatcher()->dispatch($class . ':' . Events::ENTITY_ADDED, new EntityAddedEvent($entity));
+                    MyHammer::getContainer()->get(EventDispatcher::class)->dispatch($class . ':' . Events::ENTITY_ADDED, new EntityAddedEvent($entity));
                 }
             }
         }
@@ -143,7 +143,7 @@ class EntityFlusher
                         $changed = true;
                         $dbData = $entity->getDBData();
                         $event = new EntityUpdatingEvent($entity, $bind, $dbData);
-                        $this->serviceEventDispatcher()->dispatch(
+                        MyHammer::getContainer()->get(EventDispatcher::class)->dispatch(
                             $class . ':' . Events::ENTITY_UPDATING,
                             $event
                         );
@@ -170,7 +170,7 @@ class EntityFlusher
                         }
                         $referenceChanges[$code] = $this->handleReference($reference, $cacheId, $cacheToDelete);
                     }
-                    $this->serviceEventDispatcher()->dispatch(
+                    MyHammer::getContainer()->get(EventDispatcher::class)->dispatch(
                         $class . ':' . Events::ENTITY_UPDATED,
                         new EntityUpdatedEvent($entity, $bind, $referenceChanges)
                     );
@@ -203,7 +203,7 @@ class EntityFlusher
                 $cacheServices[$cacheId] = $entities[0]::getCacheService();
                 $allFields = $ids = [];
                 foreach ($entities as $entity) {
-                    $this->serviceEventDispatcher()->dispatch($class . ':' . Events::ENTITY_DELETING, new EntityDeletingEvent($entity));
+                    MyHammer::getContainer()->get(EventDispatcher::class)->dispatch($class . ':' . Events::ENTITY_DELETING, new EntityDeletingEvent($entity));
                     $allFields[] = $entity->getFields();
                     $ids[] = $entity->getId();
                 }
@@ -220,7 +220,7 @@ class EntityFlusher
                     foreach ($this->updateIndexes($entity, $entity->getFields(), [], false, true) as $key) {
                         $cacheToDelete[$cacheId][$key] = 1;
                     }
-                    $this->serviceEventDispatcher()->dispatch($class . ':' . Events::ENTITY_DELETED, new EntityDeletedEvent($entity));
+                    MyHammer::getContainer()->get(EventDispatcher::class)->dispatch($class . ':' . Events::ENTITY_DELETED, new EntityDeletedEvent($entity));
                     $entity::clearLocalCache($entity->getId());
                 }
             }
