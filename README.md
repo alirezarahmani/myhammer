@@ -41,3 +41,8 @@ Important Notes:
 ---
 The `router` is not completely done, It only support simple routes.
  If you do care just give me a time to create Route Listener and providers. 
+ 
+ Run Tests:
+ ---
+ 
+ in root of project just run : `vendor/phpunit/phpunit/phpunit --no-configuration tests`
