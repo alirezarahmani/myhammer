@@ -64,7 +64,7 @@ class Router
             [],
             '',
             [],
-            'GET'
+            'POST'
         );
         $editRoute = new Route(
             '/demands/{id}',
@@ -73,7 +73,7 @@ class Router
             [],
             '',
             [],
-            'GET'
+            'PUSH'
         );
         $indexRoute = new Route(
             '/jobs',
